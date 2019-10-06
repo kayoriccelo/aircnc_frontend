@@ -1,9 +1,9 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 
 import api from '../../services/api';
 
 
-export default function SignIn() {
+export default function SignIn({ history }) {
     const [email, setEmail] = useState('');
 
     const handleSubmit = async (e) => {
@@ -11,9 +11,11 @@ export default function SignIn() {
 
         const response = await api.post('/sessions', { email });
 
-        const { _id } = response;
+        const { _id } = response.data;
 
         localStorage.setItem('user', _id);
+
+        history.push('/dashboard');
     };
 
     return (
